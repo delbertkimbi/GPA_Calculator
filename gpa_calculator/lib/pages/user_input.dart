@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // Import for FilteringTextInputFormatter
 
-import 'package:gpa_calculator/pages/results.dart'; // Assuming ResultPage exists
+import 'package:gpa_calculator/pages/results.dart';
+
+// Assuming ResultPage exists
 
 class SubjectsInfo extends StatefulWidget {
   const SubjectsInfo({super.key});
@@ -20,8 +22,10 @@ class _SubjectsInfoState extends State<SubjectsInfo> {
     super.dispose();
   }
 
-  final _formKey = GlobalKey<FormState>();
+  int numberOfSubjects = 0;
+  //final _formKey = GlobalKey<FormState>();
 
+  /// Check and make sure the input number of subjects is valid
   int tryParseInt(String value) {
     try {
       return int.parse(value);
@@ -34,102 +38,194 @@ class _SubjectsInfoState extends State<SubjectsInfo> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Subjects Info"),
-        centerTitle: true,
-        elevation: 0,
-      ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            const Text("data"),
-            TextField(
-              decoration: const InputDecoration(
-                label: Text(
-                  "number of subjects",
+    return SafeArea(
+      child: Scaffold(
+        // backgroundColor: Colors.deepPurple[100],
+        body: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: ListView(
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Text(
+                  "Enter the number of subjects you registered",
+                  textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
-              controller: subjectNumberController,
-              keyboardType: TextInputType.number,
-              inputFormatters: [
-                FilteringTextInputFormatter.digitsOnly
-              ], // Allow only digits
-            ),
-            ListView.builder(
-              itemCount: tryParseInt(subjectNumberController.text),
-              itemBuilder: (context, index) {
-                return Form(
-                  key: UniqueKey(),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            labelText: "Subject ${index + 1}",
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "Please enter a subject name";
-                            }
-                            return null;
-                          },
-                        ),
+              TextField(
+                decoration: InputDecoration(
+                    label: const Text(
+                      "number of subjects",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
                       ),
-                      Expanded(
-                        child: TextFormField(
-                          decoration: const InputDecoration(
-                            labelText: "grade",
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "Please enter grade";
-                            }
-                            // Add more validation (e.g., format) here
-                            return null;
-                          },
-                        ),
-                      ),
-                      Expanded(
-                        child: TextFormField(
-                          decoration: const InputDecoration(
-                            labelText: "credit value",
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "Please enter a credit value";
-                            }
-                            // Add validation for numerical value here
-                            return null;
-                          },
-                        ),
-                      ),
-                    ],
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    )),
+                controller: subjectNumberController,
+                keyboardType: TextInputType.number,
+
+                ///Ensure user input is an int
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly
+                ], // Allow only digits
+                onChanged: (value) {
+                  // Update the number of subjects when the value changes
+                  setState(() {
+                    numberOfSubjects = tryParseInt(value);
+                  });
+                },
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              const Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Text(
+                  "Fill in the spaces below with the Correct information",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
                   ),
-                );
-              },
-            ),
-            Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    // Form is valid, navigate to ResultsPage
-                    // (logic for displaying results without data collection)
+                ),
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      height: 50,
+                      alignment: Alignment.center,
+                      decoration: const BoxDecoration(
+                          color: Colors.deepPurple,
+                          borderRadius: BorderRadius.horizontal(
+                            left: Radius.circular(5),
+                          )),
+                      child: const Text(
+                        "Subject Name",
+                        style: TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      height: 50,
+                      alignment: Alignment.center,
+                      color: Colors.deepPurple[400],
+                      child: const Text(
+                        "Grade",
+                        style: TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      height: 50,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          color: Colors.deepPurple[200],
+                          borderRadius: const BorderRadius.horizontal(
+                            right: Radius.circular(5),
+                          )),
+                      child: const Text(
+                        "Credit Value",
+                        style: TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 0,
+              ),
+              ListView.builder(
+                // Ensure at least one row is always built
+                itemCount: numberOfSubjects,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  return Form(
+                    key: UniqueKey(),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                              hintText: "Subject ${index + 1}",
+                              border: const OutlineInputBorder(),
+                            ),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Please enter a subject name";
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                        Expanded(
+                          child: TextFormField(
+                            decoration: const InputDecoration(
+                              hintText: "grade",
+                              border: OutlineInputBorder(),
+                            ),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Please enter grade";
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                        Expanded(
+                          child: TextFormField(
+                            decoration: const InputDecoration(
+                                hintText: "credit value",
+                                border: OutlineInputBorder()),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Please enter a credit value";
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+              Center(
+                child: ElevatedButton(
+                  onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) =>
-                            const ResultPage(), // Assuming ResultPage exists
+                            const ResultPage(ccv: 34, cwgp: 60),
                       ),
                     );
-                  }
-                },
-                child: const Text("Submit"),
+                  },
+                  child: const Text("Submit"),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
