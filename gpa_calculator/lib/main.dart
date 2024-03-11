@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gpa_calculator/pages/home.dart';
+import 'package:gpa_calculator/pages/screens/home.dart';
 
 void main() {
   runApp(const MyApp());

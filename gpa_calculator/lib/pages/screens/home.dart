@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gpa_calculator/pages/grading_system.dart';
-import 'package:gpa_calculator/pages/user_input.dart';
+import 'package:gpa_calculator/pages/screens/grading_system.dart';
+import 'package:gpa_calculator/pages/screens/user_input.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
