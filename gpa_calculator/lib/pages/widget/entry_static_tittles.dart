@@ -25,7 +25,7 @@ class Headers extends StatelessWidget {
                 verticalAlignment: TableCellVerticalAlignment.middle,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text("Score/100", style: tableText1),
+                  child: Text("Subject", style: tableText1),
                 ),
               ),
               TableCell(
@@ -43,7 +43,7 @@ class Headers extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "Grade point/4",
+                    "Credit Value",
                     style: tableText1,
                   ),
                 ),
