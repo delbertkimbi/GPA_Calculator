@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gpa_calculator/cubit/gpa_cubit.dart';
+
 import 'package:gpa_calculator/pages/screens/results.dart';
 
 class SubjectEntry extends StatelessWidget {
@@ -82,15 +81,7 @@ class SubjectEntry extends StatelessWidget {
         Center(
           child: ElevatedButton(
             onPressed: () {
-              for (int i = 0; i < numberOfSubjects - 1; i++) {
-                BlocProvider.of<GpaCubit>(context).addSubject(
-                  _subjectController.text[i],
-                  _gradeController.text[i],
-                  int.parse(
-                    _creditValueController.text[i],
-                  ),
-                );
-              }
+     
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => const ResultPage(ccv: 34, cwgp: 60),

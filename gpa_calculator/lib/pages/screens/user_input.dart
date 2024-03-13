@@ -82,6 +82,7 @@ class _SubjectsInfoState extends State<SubjectsInfo> {
                   });
                 },
               ),
+
               const SizedBox(
                 height: 5,
               ),
@@ -98,7 +99,10 @@ class _SubjectsInfoState extends State<SubjectsInfo> {
               ),
 
               ///Calls the satic subject info Widget.
-              const InfoEntryTittle(),
+              const SizedBox(
+                height: 10,
+              ),
+              const Headers(), //   const InfoEntryTittle(),      //   const InfoEntryTittle(),
               const SizedBox(
                 height: 0,
               ),

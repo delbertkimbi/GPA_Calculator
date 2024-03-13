@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:gpa_calculator/pages/screens/grading_system.dart';
 import 'package:gpa_calculator/pages/screens/user_input.dart';
 
@@ -25,7 +26,12 @@ class _HomepageState extends State<Homepage> {
             icon: const Icon(Icons.menu),
             onPressed: () {},
           ),
-          title: const Text("GPA Calculator"),
+          title: const Text(
+            "GPA Calcos",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           centerTitle: true,
           elevation: 0,
         ),
@@ -44,7 +50,7 @@ class _HomepageState extends State<Homepage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const Text(
-                  "Welcome to GPA calculator.",
+                  "Welcome to GPA calcos",
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -78,7 +84,7 @@ class _HomepageState extends State<Homepage> {
                       child: Card(
                         child: ListTile(
                           leading: CircleAvatar(
-                            backgroundColor: Colors.deepPurple[300],
+                            backgroundColor: Colors.deepPurple[400],
                             child: Text(
                               '${index + 1}',
                               style: const TextStyle(color: Colors.white),
@@ -103,8 +109,12 @@ class _HomepageState extends State<Homepage> {
                           return const GradingSystem();
                         }));
                       },
+                      style: ElevatedButton.styleFrom(
+                        alignment: Alignment.center,
+                        backgroundColor: Colors.deepPurple[400],
+                      ),
                       child: const Text(
-                        "Check Greading System",
+                        "Check Grading System",
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
