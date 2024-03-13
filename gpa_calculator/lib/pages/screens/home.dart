@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gpa_calculator/pages/screens/grading_system.dart';
 import 'package:gpa_calculator/pages/screens/user_input.dart';
+import 'package:gpa_calculator/pages/widget/drawer.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -21,11 +21,9 @@ class _HomepageState extends State<Homepage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        drawer:
+            const CustomDrawer(userName: "Dels", userEmail: "dels@gmail.com"),
         appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(Icons.menu),
-            onPressed: () {},
-          ),
           title: const Text(
             "GPA Calcos",
             style: TextStyle(
@@ -35,12 +33,6 @@ class _HomepageState extends State<Homepage> {
           centerTitle: true,
           elevation: 0,
         ),
-        // floatingActionButton: FloatingActionButton.extended(
-        //   onPressed: () {},
-        //   backgroundColor: const Color.fromRGBO(103, 58, 183, 1),
-        //   label: const Text("Edit Semesters"),
-        //   tooltip: "Edit the semesters",
-        // ),
         body: Center(
           // Have list of semesters and the user should be able to select before calculating their GPA
           child: Padding(
