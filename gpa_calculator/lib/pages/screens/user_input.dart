@@ -103,7 +103,10 @@ class _SubjectsInfoState extends State<SubjectsInfo> {
                 const SizedBox(
                   height: 10,
                 ),
-                const Headers(), //   const InfoEntryTittle(),      //   const InfoEntryTittle(),
+                const Headers(), //   const InfoEntryTittle(),
+                const SizedBox(
+                  height: 10,
+                ),
                 const SizedBox(
                   height: 0,
                 ),

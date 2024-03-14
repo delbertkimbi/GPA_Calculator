@@ -26,10 +26,8 @@ class Login extends StatelessWidget {
         body: BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is AuthFailure) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(state.message),
-                ),
+              AlertDialog(
+                content: Text(state.message),
               );
             }
             if (state is AuthSuccess) {
