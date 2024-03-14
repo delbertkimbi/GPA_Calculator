@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gpa_calculator/auth_screens/sign_up.dart';
+import 'package:gpa_calculator/pages/screens/auth_screens/sign_up.dart';
 import 'package:gpa_calculator/bloc/auth_bloc.dart';
 import 'package:gpa_calculator/pages/screens/home.dart';
 
@@ -54,6 +54,7 @@ class Login extends StatelessWidget {
                   padding: const EdgeInsets.all(20),
                   margin: const EdgeInsets.fromLTRB(20, 100, 30, 50),
                   width: 500,
+                  height: 550,
                   decoration: BoxDecoration(
                     color: Colors.deepPurple[400],
                     borderRadius: BorderRadius.circular(20),
@@ -173,6 +174,7 @@ class Login extends StatelessWidget {
                           ),
                           child: TextField(
                             controller: passwordController,
+                            obscureText: true,
                             decoration: InputDecoration(
                               hintStyle: hintTextStyle,
                               hintText: "password",

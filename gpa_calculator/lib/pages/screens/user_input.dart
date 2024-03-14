@@ -43,76 +43,78 @@ class _SubjectsInfoState extends State<SubjectsInfo> {
         // backgroundColor: Colors.deepPurple[100],
         body: Padding(
           padding: const EdgeInsets.all(10.0),
-          child: ListView(
-            children: [
-              const Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Text(
-                  "Enter the number of subjects you registered",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              TextField(
-                decoration: InputDecoration(
-                    label: const Text(
-                      "number of subjects",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                      ),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Text(
+                    "Enter the number of subjects you registered",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
                     ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    )),
-                controller: subjectNumberController,
-                keyboardType: TextInputType.number,
-
-                ///Ensure user input is an int
-                inputFormatters: [
-                  FilteringTextInputFormatter.digitsOnly
-                ], // Allow only digits
-                onChanged: (value) {
-                  // Update the number of subjects when the value changes
-                  setState(() {
-                    numberOfSubjects = tryParseInt(value);
-                  });
-                },
-              ),
-
-              const SizedBox(
-                height: 5,
-              ),
-              const Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Text(
-                  "Fill in the spaces below with the Correct information",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
                   ),
                 ),
-              ),
+                TextField(
+                  decoration: InputDecoration(
+                      label: const Text(
+                        "number of subjects",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      )),
+                  controller: subjectNumberController,
+                  keyboardType: TextInputType.number,
 
-              ///Calls the satic subject info Widget.
-              const SizedBox(
-                height: 10,
-              ),
-              const Headers(), //   const InfoEntryTittle(),      //   const InfoEntryTittle(),
-              const SizedBox(
-                height: 0,
-              ),
+                  ///Ensure user input is an int
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly
+                  ], // Allow only digits
+                  onChanged: (value) {
+                    // Update the number of subjects when the value changes
+                    setState(() {
+                      numberOfSubjects = tryParseInt(value);
+                    });
+                  },
+                ),
 
-              ///Calls the listview of subjectInfo input (subject_info.dart)
-              SubjectEntry(numberOfSubjects: numberOfSubjects),
-              const SizedBox(
-                height: 25,
-              ),
-            ],
+                const SizedBox(
+                  height: 5,
+                ),
+                const Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Text(
+                    "Fill in the spaces below with the Correct information",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+
+                ///Calls the satic subject info Widget.
+                const SizedBox(
+                  height: 10,
+                ),
+                const Headers(), //   const InfoEntryTittle(),      //   const InfoEntryTittle(),
+                const SizedBox(
+                  height: 0,
+                ),
+
+                ///Calls the listview of subjectInfo input (subject_info.dart)
+                SubjectEntry(numberOfSubjects: numberOfSubjects),
+                const SizedBox(
+                  height: 25,
+                ),
+              ],
+            ),
           ),
         ),
       ),

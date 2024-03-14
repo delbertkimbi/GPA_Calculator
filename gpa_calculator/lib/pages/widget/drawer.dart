@@ -39,21 +39,21 @@ class CustomDrawer extends StatelessWidget {
           Expanded(
               child: ListView(
             children: [
-              CustomListTile(
+              const CustomListTile(
                   title: "Home",
                   icon: Icon(
                     Icons.add,
                     color: Colors.black45,
                     size: 30,
                   )),
-              CustomListTile(
+              const CustomListTile(
                   title: "Post a bug",
                   icon: Icon(
                     Icons.add,
                     color: Colors.black45,
                     size: 30,
                   )),
-              CustomListTile(
+              const CustomListTile(
                   title: "Solve bugs",
                   icon: Icon(
                     Icons.add,
@@ -64,7 +64,7 @@ class CustomDrawer extends StatelessWidget {
                 height: 50,
                 color: Colors.black,
               ),
-              CustomListTile(
+              const CustomListTile(
                 title: "Chat AI",
                 icon: Icon(
                   Icons.add,
@@ -72,7 +72,7 @@ class CustomDrawer extends StatelessWidget {
                   size: 30,
                 ),
               ),
-              CustomListTile(
+              const CustomListTile(
                 title: "Learn C programming",
                 icon: Icon(
                   Icons.add,
@@ -83,7 +83,7 @@ class CustomDrawer extends StatelessWidget {
               const Divider(
                 height: 20,
               ),
-              CustomListTile(
+              const CustomListTile(
                 title: "Settings",
                 icon: Icon(
                   Icons.add,
@@ -91,7 +91,7 @@ class CustomDrawer extends StatelessWidget {
                   size: 30,
                 ),
               ),
-              CustomListTile(
+              const CustomListTile(
                 title: "LogOut",
                 icon: Icon(
                   Icons.add,

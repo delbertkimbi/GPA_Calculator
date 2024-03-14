@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gpa_calculator/auth_screens/login.dart';
+import 'package:gpa_calculator/pages/screens/auth_screens/login.dart';
 
 class SignUp extends StatelessWidget {
   const SignUp({super.key});
@@ -17,21 +17,22 @@ class SignUp extends StatelessWidget {
     );
     TextEditingController emailController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
-
+    TextEditingController nameController = TextEditingController();
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.deepPurple[200],
-        body: Center(
-          child: Container(
-            padding: const EdgeInsets.all(20),
-            margin: const EdgeInsets.fromLTRB(20, 100, 30, 50),
-            width: 500,
-            decoration: BoxDecoration(
-              color: Colors.deepPurple[400],
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: ListView(children: [
-              Column(
+        body: SingleChildScrollView(
+          child: Center(
+            child: Container(
+              padding: const EdgeInsets.all(20),
+              margin: const EdgeInsets.fromLTRB(20, 100, 30, 50),
+              width: 500,
+              height: 550,
+              decoration: BoxDecoration(
+                color: Colors.deepPurple[400],
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Column(
                 children: [
                   const SizedBox(
                     height: 40,
@@ -111,6 +112,30 @@ class SignUp extends StatelessWidget {
                       color: Colors.black,
                     ),
                   ),
+                  const SizedBox(
+                    height: 7,
+                  ),
+                  Center(
+                    child: Container(
+                      height: 40,
+                      width: 300,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: TextField(
+                        controller: nameController,
+                        decoration: InputDecoration(
+                          hintStyle: hintTextStyle,
+                          hintText: "Name",
+                          border: const OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
                   const SizedBox(height: 7),
                   Center(
                     child: Container(
@@ -145,33 +170,10 @@ class SignUp extends StatelessWidget {
                       ),
                       child: TextField(
                         controller: passwordController,
+                        obscureText: true,
                         decoration: InputDecoration(
                           hintStyle: hintTextStyle,
                           hintText: "password",
-                          border: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                          ),
-                          filled: true,
-                          fillColor: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 7,
-                  ),
-                  Center(
-                    child: Container(
-                      height: 40,
-                      width: 300,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: TextField(
-                        controller: passwordController,
-                        decoration: InputDecoration(
-                          hintStyle: hintTextStyle,
-                          hintText: "Confirm-password",
                           border: const OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                           ),
@@ -237,7 +239,7 @@ class SignUp extends StatelessWidget {
                   ),
                 ],
               ),
-            ]),
+            ),
           ),
         ),
       ),

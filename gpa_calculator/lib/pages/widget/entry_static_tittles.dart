@@ -8,7 +8,7 @@ class Headers extends StatelessWidget {
     TextStyle tableText1 = const TextStyle(
         color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold);
 
-    return Container(
+    return SizedBox(
         child: Table(
             border: TableBorder.all(
               color: Colors.deepPurple,

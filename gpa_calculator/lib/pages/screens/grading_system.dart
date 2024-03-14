@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class GradingSystem extends StatefulWidget {
-  const GradingSystem({Key? key}) : super(key: key);
+  const GradingSystem({super.key});
 
   @override
   State<GradingSystem> createState() => _GradingSystemState();

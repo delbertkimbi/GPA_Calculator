@@ -12,9 +12,9 @@ class SubjectEntry extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController _subjectController = TextEditingController();
-    TextEditingController _gradeController = TextEditingController();
-    TextEditingController _creditValueController = TextEditingController();
+    TextEditingController subjectController = TextEditingController();
+    TextEditingController gradeController = TextEditingController();
+    TextEditingController creditValueController = TextEditingController();
     return Column(
       children: [
         ListView.builder(
@@ -32,7 +32,7 @@ class SubjectEntry extends StatelessWidget {
                         hintText: "Subject ${index + 1}",
                         border: const OutlineInputBorder(),
                       ),
-                      controller: _subjectController,
+                      controller: subjectController,
                       validator: (value) {
                         if (value!.isEmpty) {
                           return "Please enter a subject name";
@@ -47,7 +47,7 @@ class SubjectEntry extends StatelessWidget {
                         hintText: "grade",
                         border: OutlineInputBorder(),
                       ),
-                      controller: _gradeController,
+                      controller: gradeController,
                       validator: (value) {
                         if (value!.isEmpty) {
                           return "Please enter grade";
@@ -61,7 +61,7 @@ class SubjectEntry extends StatelessWidget {
                       decoration: const InputDecoration(
                           hintText: "credit value",
                           border: OutlineInputBorder()),
-                      controller: _creditValueController,
+                      controller: creditValueController,
                       validator: (value) {
                         if (value!.isEmpty) {
                           return "Please enter a credit value";
@@ -81,7 +81,6 @@ class SubjectEntry extends StatelessWidget {
         Center(
           child: ElevatedButton(
             onPressed: () {
-     
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => const ResultPage(ccv: 34, cwgp: 60),
