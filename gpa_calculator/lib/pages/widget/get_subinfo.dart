@@ -19,7 +19,10 @@ class SubjectEntry extends StatelessWidget {
       children: [
         Expanded(
           child: TextFormField(
-            decoration: InputDecoration(hintText: 'Subject ${index + 1}'),
+            decoration: InputDecoration(
+              hintText: 'Subject ${index + 1}',
+              border: const OutlineInputBorder(),
+            ),
             validator: (value) =>
                 value!.isEmpty ? 'Please enter subject name' : null,
             onSaved: (value) => subjectNames[index] = value!,
@@ -27,7 +30,10 @@ class SubjectEntry extends StatelessWidget {
         ),
         Expanded(
           child: TextFormField(
-            decoration: const InputDecoration(hintText: 'Grade'),
+            decoration: const InputDecoration(
+              hintText: 'Grade',
+              border: OutlineInputBorder(),
+            ),
             keyboardType: TextInputType.text,
             validator: (value) {
               if (value!.isEmpty) {
@@ -40,7 +46,10 @@ class SubjectEntry extends StatelessWidget {
         ),
         Expanded(
           child: TextFormField(
-            decoration: const InputDecoration(labelText: 'Credit Value'),
+            decoration: const InputDecoration(
+              labelText: 'Credit Value',
+              border: OutlineInputBorder(),
+            ),
             keyboardType: TextInputType.number,
             validator: (value) {
               if (value!.isEmpty) {
@@ -85,7 +94,7 @@ class SubjectEntry extends StatelessWidget {
   }
 
   double convertGradeToQualityPoints(String grade) {
-    switch (grade.toString().toUpperCase()) {
+    switch (grade.toUpperCase()) {
       case "A":
         return 4.0;
       case "B+":
