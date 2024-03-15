@@ -1,96 +1,144 @@
 import 'package:flutter/material.dart';
-
 import 'package:gpa_calculator/pages/screens/results.dart';
 
 class SubjectEntry extends StatelessWidget {
-  const SubjectEntry({
+  SubjectEntry({
     super.key,
     required this.numberOfSubjects,
   });
 
+  final _formKey = GlobalKey<FormState>();
   final int numberOfSubjects;
 
-  @override
-  Widget build(BuildContext context) {
-    TextEditingController subjectController = TextEditingController();
-    TextEditingController gradeController = TextEditingController();
-    TextEditingController creditValueController = TextEditingController();
-    return Column(
+  // Use more specific names for clarity
+  final List<String> subjectNames = [];
+  final List<int> subjectGrades = [];
+  final List<double> subjectCreditValues = [];
+
+  Widget buildSubjectRow(int index) {
+    return Row(
       children: [
-        ListView.builder(
-          // Ensure at least one row is always built
-          itemCount: numberOfSubjects,
-          shrinkWrap: true,
-          itemBuilder: (context, index) {
-            return Form(
-              key: UniqueKey(),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        hintText: "Subject ${index + 1}",
-                        border: const OutlineInputBorder(),
-                      ),
-                      controller: subjectController,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "Please enter a subject name";
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                  Expanded(
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        hintText: "grade",
-                        border: OutlineInputBorder(),
-                      ),
-                      controller: gradeController,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "Please enter grade";
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                  Expanded(
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                          hintText: "credit value",
-                          border: OutlineInputBorder()),
-                      controller: creditValueController,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "Please enter a credit value";
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                ],
-              ),
-            );
-          },
+        Expanded(
+          child: TextFormField(
+            decoration: InputDecoration(
+                hintText: 'Subject ${index + 1}'), // 1-based indexing
+            validator: (value) =>
+                value!.isEmpty ? 'Please enter subject name' : null,
+            onSaved: (value) => subjectNames[index] = value!,
+          ),
         ),
-        Center(
-          child: ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const ResultPage(ccv: 34, cwgp: 60),
-                ),
-              );
+        Expanded(
+          child: TextFormField(
+            decoration: const InputDecoration(hintText: 'Grade'),
+            keyboardType: TextInputType.text,
+            validator: (value) {
+              if (value!.isEmpty) {
+                return "Please enter grade";
+              }
+              return null;
             },
-            child: const Text("Submit"),
+            onSaved: (value) => subjectGrades[index] = int.parse(value!),
+          ),
+        ),
+        Expanded(
+          child: TextFormField(
+            decoration: const InputDecoration(labelText: 'Credit Value'),
+            keyboardType: TextInputType.number,
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Please enter a credit value';
+              } else if (double.tryParse(value) == null) {
+                return 'Credit value must be a number';
+              } else {
+                return null; // Valid input
+              }
+            },
+            onSaved: (value) =>
+                subjectCreditValues[index] = double.parse(value!),
           ),
         ),
       ],
+    );
+  }
+
+  List calculateGPA(List<String> subjectNames, List<int> subjectGrades,
+      List<double> subjectCreditValues) {
+    double totalQualityPoints = 0.0;
+    double totalCredits = 0.0;
+    for (int i = 0; i < subjectNames.length; i++) {
+      double qualityPoints = convertGradeToQualityPoints(subjectGrades[i]);
+      totalQualityPoints += qualityPoints * subjectCreditValues[i];
+      totalCredits += subjectCreditValues[i];
+    }
+    return [
+      totalQualityPoints / totalCredits,
+      totalCredits,
+      totalQualityPoints
+    ];
+  }
+
+  double convertGradeToQualityPoints(int grade) {
+    switch (grade.toString().toUpperCase()) {
+      case 'A':
+        return 4.0;
+      case "B+":
+        return 3.5;
+      case 'B':
+        return 3.0;
+      case "C+":
+        return 2.5;
+      case 'C':
+        return 2.0;
+      case "D+":
+        return 1.5;
+      case 'D':
+        return 1.0;
+      case 'F':
+        return 0.0;
+      default:
+        return 0.0;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            ListView.builder(
+              itemCount: numberOfSubjects,
+              shrinkWrap: true,
+              itemBuilder: (context, index) => buildSubjectRow(index),
+            ),
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    double gpa = calculateGPA(
+                        subjectNames, subjectGrades, subjectCreditValues)[0];
+                    double ccv = calculateGPA(
+                        subjectNames, subjectGrades, subjectCreditValues)[1];
+                    double cwgp = calculateGPA(
+                        subjectNames, subjectGrades, subjectCreditValues)[2];
+
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => ResultPage(
+                            ccv: ccv,
+                            cwgp: cwgp,
+                            gpa: gpa), // Pass GPA as an argument
+                      ),
+                    );
+                  }
+                },
+                child: const Text("Submit"),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

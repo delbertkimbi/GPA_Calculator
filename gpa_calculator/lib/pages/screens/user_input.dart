@@ -23,7 +23,6 @@ class _SubjectsInfoState extends State<SubjectsInfo> {
   }
 
   int numberOfSubjects = 0;
-  //final _formKey = GlobalKey<FormState>();
 
   /// Check and make sure the input number of subjects is valid
   int tryParseInt(String value) {
@@ -40,7 +39,6 @@ class _SubjectsInfoState extends State<SubjectsInfo> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        // backgroundColor: Colors.deepPurple[100],
         body: Padding(
           padding: const EdgeInsets.all(10.0),
           child: SingleChildScrollView(

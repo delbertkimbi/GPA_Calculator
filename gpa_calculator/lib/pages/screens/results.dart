@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 class ResultPage extends StatefulWidget {
   final int cwgp;
   final int ccv;
+  final double gpa;
   const ResultPage({
     super.key,
     required this.ccv,
     required this.cwgp,
+    required this.gpa,
   }) : assert(cwgp > 0 && ccv > 0);
 
   @override
