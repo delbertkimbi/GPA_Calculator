@@ -12,7 +12,7 @@ class SubjectEntry extends StatelessWidget {
 
   // Use more specific names for clarity
   final List<String> subjectNames = [];
-  final List<int> subjectGrades = [];
+  final List<String> subjectGrades = [];
   final List<double> subjectCreditValues = [];
 
   Widget buildSubjectRow(int index) {
@@ -20,8 +20,7 @@ class SubjectEntry extends StatelessWidget {
       children: [
         Expanded(
           child: TextFormField(
-            decoration: InputDecoration(
-                hintText: 'Subject ${index + 1}'), // 1-based indexing
+            decoration: InputDecoration(hintText: 'Subject ${index + 1}'),
             validator: (value) =>
                 value!.isEmpty ? 'Please enter subject name' : null,
             onSaved: (value) => subjectNames[index] = value!,
@@ -37,7 +36,7 @@ class SubjectEntry extends StatelessWidget {
               }
               return null;
             },
-            onSaved: (value) => subjectGrades[index] = int.parse(value!),
+            onSaved: (value) => subjectGrades[index] = value!,
           ),
         ),
         Expanded(
@@ -61,7 +60,7 @@ class SubjectEntry extends StatelessWidget {
     );
   }
 
-  List calculateGPA(List<String> subjectNames, List<int> subjectGrades,
+  List calculateGPA(List<String> subjectNames, List<String> subjectGrades,
       List<double> subjectCreditValues) {
     double totalQualityPoints = 0.0;
     double totalCredits = 0.0;
@@ -77,7 +76,7 @@ class SubjectEntry extends StatelessWidget {
     ];
   }
 
-  double convertGradeToQualityPoints(int grade) {
+  double convertGradeToQualityPoints(String grade) {
     switch (grade.toString().toUpperCase()) {
       case 'A':
         return 4.0;
@@ -126,9 +125,10 @@ class SubjectEntry extends StatelessWidget {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => ResultPage(
-                            ccv: ccv,
-                            cwgp: cwgp,
-                            gpa: gpa), // Pass GPA as an argument
+                          ccv: ccv,
+                          cwgp: cwgp,
+                          gpa: gpa,
+                        ),
                       ),
                     );
                   }

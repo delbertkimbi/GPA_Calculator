@@ -9,7 +9,7 @@ class ResultPage extends StatefulWidget {
     required this.ccv,
     required this.cwgp,
     required this.gpa,
-  }) : assert(cwgp > 0 && ccv > 0);
+  });
 
   @override
   State<ResultPage> createState() => _ResultPageState();
