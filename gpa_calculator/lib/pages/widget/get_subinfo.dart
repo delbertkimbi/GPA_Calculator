@@ -60,8 +60,8 @@ class SubjectEntry extends StatelessWidget {
     );
   }
 
-  List calculateGPA(List<String> subjectNames, List<String> subjectGrades,
-      List<double> subjectCreditValues) {
+  List<double> calculateGPA(List<String> subjectNames,
+      List<String> subjectGrades, List<double> subjectCreditValues) {
     double totalQualityPoints = 0.0;
     double totalCredits = 0.0;
     for (int i = 0; i < subjectNames.length; i++) {
@@ -115,19 +115,18 @@ class SubjectEntry extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    double gpa = calculateGPA(
-                        subjectNames, subjectGrades, subjectCreditValues)[0];
-                    double ccv = calculateGPA(
-                        subjectNames, subjectGrades, subjectCreditValues)[1];
-                    double cwgp = calculateGPA(
-                        subjectNames, subjectGrades, subjectCreditValues)[2];
+                    List<double> gpaValues = calculateGPA(
+                        subjectNames, subjectGrades, subjectCreditValues);
+                    double gpa = gpaValues[0];
+                    double ccv = gpaValues[1]; // Total credits
+                    double cwgp = gpaValues[2]; // Total quality points
 
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => ResultPage(
+                          gpa: gpa,
                           ccv: ccv,
                           cwgp: cwgp,
-                          gpa: gpa,
                         ),
                       ),
                     );
