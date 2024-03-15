@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ResultPage extends StatefulWidget {
-  final int cwgp;
-  final int ccv;
+  final double cwgp;
+  final double ccv;
   final double gpa;
   const ResultPage({
     super.key,
@@ -16,14 +16,6 @@ class ResultPage extends StatefulWidget {
 }
 
 class _ResultPageState extends State<ResultPage> {
-  double gpa = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    gpa = widget.cwgp / widget.ccv;
-  }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -56,7 +48,7 @@ class _ResultPageState extends State<ResultPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Center(
-                  child: (gpa < 2.0)
+                  child: (widget.gpa < 2.0)
                       ? const Text(
                           "Don't be discouraged :) \n Just Study more ok!!!",
                           textAlign: TextAlign.center,
@@ -80,7 +72,7 @@ class _ResultPageState extends State<ResultPage> {
                   height: 30,
                 ),
                 Text(
-                  'Cumulative weighted grade points: ${widget.cwgp}',
+                  'Cumulative weighted grade points: ${widget.cwgp.toStringAsFixed(2)}',
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     fontSize: 20,
@@ -92,7 +84,7 @@ class _ResultPageState extends State<ResultPage> {
                   height: 15,
                 ),
                 Text(
-                  'Cumulative Credit Values: ${widget.ccv}',
+                  'Cumulative Credit Values: ${widget.ccv.toStringAsFixed(2)}',
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     fontSize: 20,
@@ -104,7 +96,7 @@ class _ResultPageState extends State<ResultPage> {
                   height: 15,
                 ),
                 Text(
-                  'GPA :${gpa.toStringAsFixed(2)}',
+                  'GPA :${widget.gpa.toStringAsFixed(2)}',
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     fontSize: 25,
