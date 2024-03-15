@@ -46,8 +46,9 @@ class SubjectEntry extends StatelessWidget {
             validator: (value) {
               if (value!.isEmpty) {
                 return 'Please enter a credit value';
-              } else if (double.tryParse(value) == null) {
-                return 'Credit value must be a number';
+              } else if (double.tryParse(value) == null ||
+                  double.parse(value) <= 0) {
+                return 'Credit value must be a positive number';
               } else {
                 return null; // Valid input
               }
@@ -69,11 +70,18 @@ class SubjectEntry extends StatelessWidget {
       totalQualityPoints += qualityPoints * subjectCreditValues[i];
       totalCredits += subjectCreditValues[i];
     }
-    return [
-      totalQualityPoints / totalCredits,
-      totalCredits,
-      totalQualityPoints
-    ];
+
+    if (totalCredits == 0.0) {
+      debugPrint('Error: Total credits cannot be zero.');
+      // Handle the error (e.g., display a message to the user)
+      return [0.0, 0.0, 0.0]; // Or return default values
+    } else {
+      return [
+        totalQualityPoints / totalCredits,
+        totalCredits,
+        totalQualityPoints
+      ];
+    }
   }
 
   double convertGradeToQualityPoints(String grade) {
