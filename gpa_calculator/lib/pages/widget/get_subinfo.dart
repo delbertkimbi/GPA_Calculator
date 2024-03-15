@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:gpa_calculator/pages/screens/results.dart'; // Assuming ResultPage is here
 
 class SubjectEntry extends StatelessWidget {
+  final int numberOfSubjects;
   SubjectEntry({
     super.key,
     required this.numberOfSubjects,
   });
 
   final _formKey = GlobalKey<FormState>();
-  final int numberOfSubjects;
 
-  // Use more specific names for clarity
   final List<String> subjectNames = [];
   final List<String> subjectGrades = [];
   final List<double> subjectCreditValues = [];
@@ -63,8 +62,8 @@ class SubjectEntry extends StatelessWidget {
 
   List<double> calculateGPA(List<String> subjectNames,
       List<String> subjectGrades, List<double> subjectCreditValues) {
-    double totalQualityPoints = 1.0;
-    double totalCredits = 1.0;
+    double totalQualityPoints = 0.0;
+    double totalCredits = 0.0;
     for (int i = 0; i < subjectNames.length; i++) {
       double qualityPoints = convertGradeToQualityPoints(subjectGrades[i]);
       totalQualityPoints += qualityPoints * subjectCreditValues[i];
@@ -121,30 +120,30 @@ class SubjectEntry extends StatelessWidget {
               shrinkWrap: true,
               itemBuilder: (context, index) => buildSubjectRow(index),
             ),
+            const SizedBox(
+              height: 7,
+            ),
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    // Clear credit values if validation fails
-                    if (!_formKey.currentState!.validate()) {
-                      subjectCreditValues.clear(); // Or set all to 0.0
-                    } else {
-                      List<double> gpaValues = calculateGPA(
-                          subjectNames, subjectGrades, subjectCreditValues);
-                      double gpa = gpaValues[0];
-                      double ccv = gpaValues[1]; // Total credits
-                      double cwgp = gpaValues[2]; // Total quality points
-
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => ResultPage(
-                            gpa: gpa,
-                            ccv: ccv,
-                            cwgp: cwgp,
-                          ),
+                  if (!_formKey.currentState!.validate()) {
+                    subjectCreditValues.clear(); // Or set all to 0.0
+                  } else if (_formKey.currentState!.validate()) {
+                    List<double> gpaValues = calculateGPA(
+                        subjectNames, subjectGrades, subjectCreditValues);
+                    double gpa = gpaValues[0];
+                    double ccv = gpaValues[1]; // Total credits
+                    double cwgp = gpaValues[2]; // Total quality points
+                    debugPrint('GPA: $gpa, CCV: $ccv, CWGP');
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => ResultPage(
+                          gpa: gpa,
+                          ccv: ccv,
+                          cwgp: cwgp,
                         ),
-                      );
-                    }
+                      ),
+                    );
                   }
                 },
                 child: const Text("Submit"),
