@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gpa_calculator/pages/screens/auth_screens/sign_up.dart';
-import 'package:gpa_calculator/bloc/auth_bloc.dart';
-import 'package:gpa_calculator/pages/screens/home.dart';
+import 'package:gpa_calculator/Presention_layer/pages/screens/auth_screens/sign_up.dart';
+import 'package:gpa_calculator/Bussiness_Logic_layer/bloc/auth_bloc.dart';
+import 'package:gpa_calculator/Presention_layer/pages/screens/home.dart';
 
 class Login extends StatelessWidget {
   const Login({super.key});

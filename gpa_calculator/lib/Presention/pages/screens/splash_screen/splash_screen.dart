@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gpa_calculator/pages/screens/auth_screens/login.dart';
+import 'package:gpa_calculator/Presention_layer/pages/screens/auth_screens/login.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

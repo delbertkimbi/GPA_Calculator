@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gpa_calculator/bloc/auth_bloc.dart';
+import 'package:gpa_calculator/Bussiness_Logic/blocs/bloc/auth_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:gpa_calculator/pages/screens/splash_screen/splash_screen.dart';
+import 'package:gpa_calculator/Presention/pages/screens/splash_screen/splash_screen.dart';
 import 'firebase_options.dart';
 
 void main() async {

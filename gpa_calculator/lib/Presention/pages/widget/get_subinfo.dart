@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gpa_calculator/pages/screens/results.dart'; // Assuming ResultPage is here
+import 'package:gpa_calculator/Presention/pages/screens/results.dart';
 
 class SubjectEntry extends StatelessWidget {
   final int numberOfSubjects;
