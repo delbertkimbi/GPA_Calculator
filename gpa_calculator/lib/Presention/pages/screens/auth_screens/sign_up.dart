@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gpa_calculator/Presention_layer/pages/screens/auth_screens/login.dart';
+import 'package:gpa_calculator/Presention/pages/screens/auth_screens/login.dart';
 
 class SignUp extends StatelessWidget {
   const SignUp({super.key});

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gpa_calculator/Data_layer/models/model/subject.dart';
+import 'package:gpa_calculator/Data/models/model/subject.dart';
 
 part 'cgpa_state.dart';
 

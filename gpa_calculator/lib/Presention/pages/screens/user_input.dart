@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:gpa_calculator/Presention_layer/pages/widget/entry_static_tittles.dart';
-import 'package:gpa_calculator/Presention_layer/pages/widget/get_subinfo.dart'; // Import for FilteringTextInputFormatter
+import 'package:gpa_calculator/Presention/pages/widget/entry_static_tittles.dart';
+import 'package:gpa_calculator/Presention/pages/widget/get_subinfo.dart';
 
 // Assuming ResultPage exists
 
