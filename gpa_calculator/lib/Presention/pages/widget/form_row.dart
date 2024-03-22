@@ -7,6 +7,12 @@ class FormRow extends StatelessWidget {
     required this.subjectGrades,
     required this.subjectCreditValues,
     required this.index,
+    required void Function(
+            {required int index,
+            required double subjectCreditValue,
+            required String subjectGrade,
+            required String subjectName})
+        onUpdateSubjectDetails,
   });
 
   final List<String> subjectNames;

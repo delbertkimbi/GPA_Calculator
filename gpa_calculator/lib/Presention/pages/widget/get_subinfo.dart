@@ -41,7 +41,7 @@ class SubjectEntry extends StatelessWidget {
                 subjectGrades: subjectGrades,
                 subjectCreditValues: subjectCreditValues,
                 index: index,
-                // onUpdateSubjectDetails: updateSubjectDetails,
+                onUpdateSubjectDetails: updateSubjectDetails,
               ),
             ),
             const SizedBox(
