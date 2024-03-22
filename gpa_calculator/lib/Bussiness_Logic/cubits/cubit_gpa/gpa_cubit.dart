@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gpa_calculator/Data/models/model/subject.dart';
 
-part 'cgpa_state.dart';
+part 'gpa_state.dart';
 
 class CgpaCubit extends Cubit<CgpaState> {
-  CgpaCubit() : super(CgpaInitial());
+  CgpaCubit() : super(GpaInitial());
 
   List<Subject> subjects = [];
 
@@ -14,8 +14,8 @@ class CgpaCubit extends Cubit<CgpaState> {
   TextEditingController creditValueController = TextEditingController();
 
   void refresh() {
-    emit(CgpaLoading());
-    emit(CgpaLoaded());
+    emit(GpaLoading());
+    emit(GpaLoaded());
   }
 
   String? validate() {
@@ -31,7 +31,7 @@ class CgpaCubit extends Cubit<CgpaState> {
   }
 
   addSubject() {
-    emit(CgpaLoading());
+    emit(GpaLoading());
     try {
       String? error = validate();
       if (error != null) {
@@ -45,7 +45,7 @@ class CgpaCubit extends Cubit<CgpaState> {
         subjectNameController.clear();
         creditValueController.clear();
         gradeController.clear();
-        emit(CgpaLoaded());
+        emit(GpaLoaded());
       }
     } catch (e, s) {
       debugPrintStack(stackTrace: s);

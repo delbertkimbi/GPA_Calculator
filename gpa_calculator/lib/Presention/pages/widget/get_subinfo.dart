@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gpa_calculator/Presention/pages/screens/results.dart';
+import 'package:gpa_calculator/Presention/pages/widget/form_row.dart';
 
 class SubjectEntry extends StatelessWidget {
   final int numberOfSubjects;
+
   SubjectEntry({
     super.key,
     required this.numberOfSubjects,
@@ -13,64 +15,78 @@ class SubjectEntry extends StatelessWidget {
   final List<String> subjectNames = [];
   final List<String> subjectGrades = [];
   final List<double> subjectCreditValues = [];
+  void updateSubjectDetails({
+    required int index,
+    required String subjectName,
+    required String subjectGrade,
+    required double subjectCreditValue,
+  }) {
+    subjectNames[index] = subjectName;
+    subjectGrades[index] = subjectGrade;
+    subjectCreditValues[index] = subjectCreditValue;
+  }
 
-  Widget buildSubjectRow(int index) {
-    return Row(
-      children: [
-        Expanded(
-          child: TextFormField(
-            decoration: InputDecoration(
-              hintText: 'Subject ${index + 1}',
-              border: const OutlineInputBorder(),
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            ListView.builder(
+              itemCount: numberOfSubjects > 0 ? numberOfSubjects : 0,
+              shrinkWrap: true,
+              itemBuilder: (context, index) => FormRow(
+                subjectNames: subjectNames,
+                subjectGrades: subjectGrades,
+                subjectCreditValues: subjectCreditValues,
+                index: index,
+                // onUpdateSubjectDetails: updateSubjectDetails,
+              ),
             ),
-            validator: (value) =>
-                value!.isEmpty ? 'Please enter subject name' : null,
-            onSaved: (value) => subjectNames[index] = value!,
-          ),
-        ),
-        Expanded(
-          child: TextFormField(
-            decoration: const InputDecoration(
-              hintText: 'Grade',
-              border: OutlineInputBorder(),
+            const SizedBox(
+              height: 7,
             ),
-            keyboardType: TextInputType.text,
-            validator: (value) {
-              if (value!.isEmpty) {
-                return "Please enter grade";
-              }
-              return null;
-            },
-            onSaved: (value) => subjectGrades[index] = value!,
-          ),
-        ),
-        Expanded(
-          child: TextFormField(
-            decoration: const InputDecoration(
-              labelText: 'Credit Value',
-              border: OutlineInputBorder(),
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  if (!_formKey.currentState!.validate()) {
+                    subjectCreditValues.clear();
+                  } else if (_formKey.currentState!.validate()) {
+                    List<double> gpaValues = calculateGPA(
+                      subjectNames,
+                      subjectGrades,
+                      subjectCreditValues,
+                    );
+                    double gpa = gpaValues[0];
+                    double ccv = gpaValues[1]; // Total credits
+                    double cwgp = gpaValues[2]; // Total quality points
+                    debugPrint('GPA: $gpa, CCV: $ccv, CWGP: $cwgp');
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => ResultPage(
+                          gpa: gpa,
+                          ccv: ccv,
+                          cwgp: cwgp,
+                        ),
+                      ),
+                    );
+                  }
+                },
+                child: const Text("Submit"),
+              ),
             ),
-            keyboardType: TextInputType.number,
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Please enter a credit value';
-              } else if (double.tryParse(value) == null ||
-                  double.parse(value) <= 0) {
-                return 'Credit value must be a positive number';
-              } else {
-                return null; // Valid input
-              }
-            },
-            onSaved: (value) =>
-                subjectCreditValues[index] = double.parse(value!),
-          ),
+          ],
         ),
-      ],
+      ),
     );
   }
 
-  List<double> calculateGPA(List<String> subjectNames,
-      List<String> subjectGrades, List<double> subjectCreditValues) {
+  List<double> calculateGPA(
+    List<String> subjectNames,
+    List<String> subjectGrades,
+    List<double> subjectCreditValues,
+  ) {
     double totalQualityPoints = 0.0;
     double totalCredits = 0.0;
     for (int i = 0; i < subjectNames.length; i++) {
@@ -114,53 +130,5 @@ class SubjectEntry extends StatelessWidget {
       default:
         return 0.0;
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Form(
-        key: _formKey,
-        child: Column(
-          children: [
-            ListView.builder(
-              // Ensure numberOfSubjects > 0 to avoid errors
-              itemCount: numberOfSubjects > 0 ? numberOfSubjects : 0,
-              shrinkWrap: true,
-              itemBuilder: (context, index) => buildSubjectRow(index),
-            ),
-            const SizedBox(
-              height: 7,
-            ),
-            Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  if (!_formKey.currentState!.validate()) {
-                    subjectCreditValues.clear(); // Or set all to 0.0
-                  } else if (_formKey.currentState!.validate()) {
-                    List<double> gpaValues = calculateGPA(
-                        subjectNames, subjectGrades, subjectCreditValues);
-                    double gpa = gpaValues[0];
-                    double ccv = gpaValues[1]; // Total credits
-                    double cwgp = gpaValues[2]; // Total quality points
-                    debugPrint('GPA: $gpa, CCV: $ccv, CWGP');
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => ResultPage(
-                          gpa: gpa,
-                          ccv: ccv,
-                          cwgp: cwgp,
-                        ),
-                      ),
-                    );
-                  }
-                },
-                child: const Text("Submit"),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
   }
 }
